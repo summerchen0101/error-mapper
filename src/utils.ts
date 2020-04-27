@@ -10,5 +10,3 @@ export function getValueByObjPath(objectPath: string, data: StringIndex): any {
     return val[next] || ""
   }, data)
 }
-
-

@@ -5,7 +5,6 @@ export interface StringIndex {
 
 export type ErrorMap = StringIndex
 export type StatusMap = StringIndex
-
 export interface ErrorHandlerConfig {
   type?: ErrorHandlerTypes;
   templateKey?: string;
