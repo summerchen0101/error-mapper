@@ -1,26 +1,25 @@
-import { ErrorHandlerConfig } from './type';
-import { AxiosResponse } from 'axios'
+import { ErrorMapperConfig, AxiosResponse } from '../';
 import { transferStringTemplate, getValueByObjPath } from './utils';
 
-export default class ErrorHandler{
+export default class ErrorMapper{
   private targetValue: string | number = ""
   private isValidValue = true
   private errMsg = ""
   private constructor(
     private response: AxiosResponse,
-    private config: ErrorHandlerConfig
+    private config: ErrorMapperConfig
   ) {
     this.handleErrorResponse()
   }
 
   static register(
     response: AxiosResponse,
-    config: ErrorHandlerConfig
-  ): ErrorHandler {
-    return new ErrorHandler(response, config)
+    config: ErrorMapperConfig
+  ): ErrorMapper {
+    return new ErrorMapper(response, config)
   }
 
-  getTargetValue(): string | number {
+  private getTargetValue(): string | number {
     const val = this.config.path && getValueByObjPath(this.config.path, this.response)
     if(Array.isArray(val)) {
       return val?.[0]
@@ -31,7 +30,7 @@ export default class ErrorHandler{
     return val || ""
   }
 
-  handleErrorResponse(): void {
+  private handleErrorResponse(): void {
     this.targetValue = this.getTargetValue()
     this.errMsg = this.getErrMsg()
     this.isValidValue = this.getValueValidation()
@@ -41,7 +40,7 @@ export default class ErrorHandler{
 
   }
 
-  getErrMsg(): string {
+  private getErrMsg(): string {
     const msg = this.config.map?.[this.targetValue]
       || this.config.defaultMsg
       || `Error occurred!`
@@ -51,7 +50,7 @@ export default class ErrorHandler{
     return transferStringTemplate(msg, params)
   }
 
-  getValueValidation(): boolean {
+  private getValueValidation(): boolean {
     const silentValue = this.config.silentValue
     if(typeof silentValue === 'string' || typeof silentValue === 'number' ) {
       return silentValue === this.config.silentValue

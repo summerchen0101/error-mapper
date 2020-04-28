@@ -1,4 +1,4 @@
-import { StringIndex } from './type'
+import { StringIndex } from '../'
 export function transferStringTemplate(templateString: string, inserts: StringIndex): string {
   return templateString?.replace(/\{\s*([$#@\-\d\w]+)\s*\}/gim, (v, val: string) => {
     return inserts[val]
