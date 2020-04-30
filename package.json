@@ -4,7 +4,7 @@
   "main": "dist/main.js",
   "license": "MIT",
   "scripts": {
-    "start": "lite-server"
+    "start": "tsc -w"
   },
   "dependencies": {
     "axios": "^0.19.2"
