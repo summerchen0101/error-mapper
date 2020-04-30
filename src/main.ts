@@ -53,7 +53,7 @@ export default class ErrorMapper{
   private getValueValidation(): boolean {
     const silentValue = this.config.silentValue
     if(typeof silentValue === 'string' || typeof silentValue === 'number' ) {
-      return silentValue === this.config.silentValue
+      return this.targetValue === this.config.silentValue
     }
     else if(Array.isArray(silentValue)) {
       return silentValue.includes(this.targetValue)
