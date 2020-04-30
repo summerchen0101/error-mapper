@@ -23,8 +23,15 @@ export type ErrorMapperTypes = 'code' | 'status' | 'params'
 
 export type SilentValueFunc = (val: string | number) => boolean
 
-export interface ErrorMapperStatic {
-  register: (response: AxiosResponse, config: ErrorMapperConfig) => ErrorMapperStatic
+export interface ErrorMapperInstance {
+  // getTargetValue: () => string | number;
+  // handleErrorResponse: () => void;
+  // getErrMsg: () => string;
+  // getValueValidation: ()=> boolean
+}
+
+export interface ErrorMapperStatic extends ErrorMapperInstance{
+  register: (response: AxiosResponse, config: ErrorMapperConfig) => ErrorMapperInstance
 }
 
 declare const ErrorMapper: ErrorMapperStatic;
