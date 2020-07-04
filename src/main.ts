@@ -24,8 +24,8 @@ export default class ErrorMapper{
     if(Array.isArray(val)) {
       return val?.[0]
     }
-    else if(!this.config.path && (typeof this.response === 'number' || typeof this.response === 'string')) {
-      return this.response
+    else if(!this.config.path && (typeof val === 'number' || typeof val === 'string')) {
+      return val
     }
     return val || ""
   }
